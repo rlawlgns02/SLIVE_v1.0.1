@@ -63,6 +63,7 @@ SLIVE/
 ## 코드 파일 목록
 
 ### 1_data\processed\numpyView.py
+# npy파일을 컴퓨터에서 볼수 있도록 변환해 주는 코드
 ```python
 import numpy as np
 # NPY 파일에서 데이터 로드
@@ -71,6 +72,7 @@ print(loaded_array)
 ```
 
 ### 1_data\utils\convert_json_to_sequence.py
+라벨링 데이터셋을
 ```python
 import os
 import json
