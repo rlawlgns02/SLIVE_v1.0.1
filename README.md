@@ -63,7 +63,7 @@ SLIVE/
 ## 코드 파일 목록
 
 ### 1_data\processed\numpyView.py
-# npy파일을 컴퓨터에서 볼수 있도록 변환해 주는 코드
+npy파일을 컴퓨터에서 볼수 있도록 변환해 주는 코드
 ```python
 import numpy as np
 # NPY 파일에서 데이터 로드
@@ -72,7 +72,7 @@ print(loaded_array)
 ```
 
 ### 1_data\utils\convert_json_to_sequence.py
-라벨링 데이터셋을
+라벨링 데이터셋을 npy파일로 변환하는 코드
 ```python
 import os
 import json
@@ -102,60 +102,7 @@ for label in os.listdir(SRC_DIR):
                 data = json.load(f)
                 # 예시: hand_left_keypoints_2d 또는 pose_keypoints_2d 등에서 21*3=63개 추출
                 # 아래는 hand_left_keypoints_2d 사용 예시
-                kps = data["people"]["hand_left_keypoints_2d"][:63]
-                keypoints_seq.append(kps)
-        if keypoints_seq:
-            keypoints_seq = np.array(keypoints_seq)  # (프레임수, 63)
-            np.save(os.path.join(save_label_dir, seq_folder + ".npy"), keypoints_seq)
-```
-
-### 2_models\hand_tracking\extract_keypoints.py
-```python
-import cv2
-import mediapipe as mp
-import numpy as np
-import os
-from datetime import datetime
-
-mp_hands = mp.solutions.hands
-hands = mp_hands.Hands(static_image_mode=False, max_num_hands=6)  # max_num_hands=2로 변경
-mp_draw = mp.solutions.drawing_utils
-
-SAVE_DIR = '1_data/processed/keypoints'
-os.makedirs(SAVE_DIR, exist_ok=True)
-
-cap = cv2.VideoCapture(0)
-print("웹캠이 켜졌습니다. 손을 화면에 보여주세요.")
-
-while cap.isOpened():
-    ret, frame = cap.read()
-    if not ret:
-        break
-
-    img_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-    result = hands.process(img_rgb)
-
-    if result.multi_hand_landmarks:
-        for idx, hand_landmarks in enumerate(result.multi_hand_landmarks):  # enumerate로 인덱스 추가
-            mp_draw.draw_landmarks(frame, hand_landmarks, mp_hands.HAND_CONNECTIONS)
-
-            keypoints = []
-            for lm in hand_landmarks.landmark:
-                keypoints.append([lm.x, lm.y, lm.z])
-            keypoints = np.array(keypoints).flatten()
-
-            filename = datetime.now().strftime("%Y%m%d_%H%M%S") + f"_hand{idx}.npy"  # 손 인덱스 추가
-            np.save(os.path.join(SAVE_DIR, filename), keypoints)
-
-    cv2.imshow('Hand Keypoints', frame)
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
-
-cap.release()
-cv2.destroyAllWindows()
-```
-
-### 2_models\seq2seq_translator\seq2seq.py
+                kps = data["people"]["hand_left_keypo드
 ```python
 import torch
 import torch.nn as nn
@@ -200,6 +147,7 @@ class Seq2Seq(nn.Module):
 ```
 
 ### 2_models\word_classifier\lstm_model.py
+lstm 모델 코드
 ```python
 import torch
 import torch.nn as nn
@@ -217,6 +165,7 @@ class LSTMClassifier(nn.Module):
 ```
 
 ### 3_app\lstm_model.py
+위와 같은 lstm 모델 코드드 (현재 LSTM을 import가 안돼서 임시로 동일 파일에 넣고 있음)
 ```python
 import torch
 import torch.nn as nn
@@ -234,6 +183,7 @@ class LSTMClassifier(nn.Module):
 ```
 
 ### 3_app\realtime_infer.py
+실시간 수어 인식 하는 코드
 ```python
 import cv2
 import torch
@@ -288,6 +238,7 @@ cv2.destroyAllWindows()
 ```
 
 ### 4_training\train_word_model.py
+학습 시키는 코드드
 ```python
 import torch
 import torch.nn as nn
@@ -357,8 +308,5 @@ torch.save(model.state_dict(), "5_checkpoints/word_model.pth")
 
 ## 참고
 - 손 키포인트 추출: Mediapipe
-- 음성 변환: gTTS
 - 모델: PyTorch 기반 LSTM/Seq2Seq
 
-## 라이선스
-본 프로젝트는 연구 및 교육 목적입니다.
