@@ -62,7 +62,7 @@ SLIVE/
 
 ## 코드 파일 목록
 
-### 1. c:\Users\Administrator\Downloads\sign_language_translator\1_data\processed\numpyView.py
+### 1. 1_data\processed\numpyView.py
 ```python
 import numpy as np
 # NPY 파일에서 데이터 로드
@@ -70,7 +70,7 @@ loaded_array = np.load('1_data/processed/keypoints/')
 print(loaded_array)
 ```
 
-### 2. c:\Users\Administrator\Downloads\sign_language_translator\1_data\utils\convert_json_to_sequence.py
+### 2. 1_data\utils\convert_json_to_sequence.py
 ```python
 import os
 import json
@@ -107,7 +107,7 @@ for label in os.listdir(SRC_DIR):
             np.save(os.path.join(save_label_dir, seq_folder + ".npy"), keypoints_seq)
 ```
 
-### 3. c:\Users\Administrator\Downloads\sign_language_translator\2_models\hand_tracking\extract_keypoints.py
+### 3. 2_models\hand_tracking\extract_keypoints.py
 ```python
 import cv2
 import mediapipe as mp
@@ -153,7 +153,7 @@ cap.release()
 cv2.destroyAllWindows()
 ```
 
-### 4. c:\Users\Administrator\Downloads\sign_language_translator\2_models\seq2seq_translator\seq2seq.py
+### 4. 2_models\seq2seq_translator\seq2seq.py
 ```python
 import torch
 import torch.nn as nn
@@ -197,7 +197,7 @@ class Seq2Seq(nn.Module):
         return torch.cat(outputs, dim=1)
 ```
 
-### 5. c:\Users\Administrator\Downloads\sign_language_translator\2_models\word_classifier\lstm_model.py
+### 5. 2_models\word_classifier\lstm_model.py
 ```python
 import torch
 import torch.nn as nn
@@ -214,7 +214,7 @@ class LSTMClassifier(nn.Module):
         return out
 ```
 
-### 6. c:\Users\Administrator\Downloads\sign_language_translator\3_app\lstm_model.py
+### 6. 3_app\lstm_model.py
 ```python
 import torch
 import torch.nn as nn
@@ -231,7 +231,7 @@ class LSTMClassifier(nn.Module):
         return out
 ```
 
-### 7. c:\Users\Administrator\Downloads\sign_language_translator\3_app\realtime_infer.py
+### 7. 3_app\realtime_infer.py
 ```python
 import cv2
 import torch
@@ -285,7 +285,7 @@ cap.release()
 cv2.destroyAllWindows()
 ```
 
-### 8. c:\Users\Administrator\Downloads\sign_language_translator\4_training\train_word_model.py
+### 8. 4_training\train_word_model.py
 ```python
 import torch
 import torch.nn as nn
@@ -335,8 +335,6 @@ torch.save(model.state_dict(), "5_checkpoints/word_model.pth")
 ```
 
 ---
-
-> 나머지 텍스트 파일(디렉토리 생성용도.txt 등)은 생략했습니다. 필요시 추가 가능합니다.
 
 ## 실행 방법
 
